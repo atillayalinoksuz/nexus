@@ -48,12 +48,20 @@ const App: React.FC = () => {
   const searchResults = useMemo(() => {
     if (!query) return [];
     const lowercasedQuery = query.toLowerCase();
-    return searchData.filter(
-      (item) =>
+    return searchData.filter((item) => {
+      const mainContentMatch =
         item.title.toLowerCase().includes(lowercasedQuery) ||
         item.url.toLowerCase().includes(lowercasedQuery) ||
-        item.description.toLowerCase().includes(lowercasedQuery)
-    );
+        item.description.toLowerCase().includes(lowercasedQuery);
+      
+      const subLinksMatch = item.subLinks?.some(
+        (link) =>
+          link.title.toLowerCase().includes(lowercasedQuery) ||
+          link.url.toLowerCase().includes(lowercasedQuery)
+      );
+
+      return mainContentMatch || subLinksMatch;
+    });
   }, [query]);
 
   const groupedResults = useMemo(() => {
