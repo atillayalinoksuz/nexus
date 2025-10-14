@@ -6,7 +6,13 @@ export const searchData: SearchResult[] = [
     title: "YouTube",
     url: "https://www.youtube.com",
     description: "Kullanıcıların video yükleyebildiği, izleyebildiği ve paylaşabildiği popüler bir video paylaşım platformu.",
-    category: "Eğlence"
+    category: "Eğlence",
+    subLinks: [
+      { title: "Music", url: "https://music.youtube.com" },
+      { title: "Studio", url: "https://studio.youtube.com" },
+      { title: "Kids", url: "https://www.youtubekids.com" },
+      { title: "TV", url: "https://tv.youtube.com" }
+    ]
   },
   {
     id: 2,
@@ -34,7 +40,7 @@ export const searchData: SearchResult[] = [
     title: "Nexor",
     url: "http://nexor.rf.gd",
     description: "",
-    category: "Geliştirme"
+    category: "Teklonoji"
   },
   {
     id: 7,
@@ -48,21 +54,39 @@ export const searchData: SearchResult[] = [
     title: "Yandex",
     url: "https://www.yandex.com.tr",
     description: "Türkiye'ye özel hizmetler sunan popüler bir arama motoru ve teknoloji şirketi.",
-    category: "Araçlar & Üretkenlik"
+    category: "Araçlar & Üretkenlik",
+     subLinks: [
+      { title: "Mail", url: "https://mail.yandex.com.tr" },
+      { title: "Translate", url: "https://translate.yandex.com.tr" },
+      { title: "Maps", url: "https://yandex.com.tr/maps" },
+      { title: "Disk", url: "https://disk.yandex.com.tr" }
+    ]
   },
   {
     id: 9,
     title: "Google",
     url: "https://www.google.com",
     description: "Dünyanın en büyük arama motoru. Web'de bilgi bulmak için kullanılır.",
-    category: "Araçlar & Üretkenlik"
+    category: "Araçlar & Üretkenlik",
+    subLinks: [
+      { title: "Gmail", url: "https://mail.google.com" },
+      { title: "Maps", url: "https://maps.google.com" },
+      { title: "Translate", url: "https://translate.google.com" },
+      { title: "News", url: "https://news.google.com" }
+    ]
   },
   {
     id: 10,
     title: "GitHub",
     url: "https://github.com",
     description: "Yazılım geliştirme ve sürüm kontrolü için bir web tabanlı platform.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Gist", url: "https://gist.github.com" },
+      { title: "Desktop", url: "https://desktop.github.com" },
+      { title: "Marketplace", url: "https://github.com/marketplace" },
+      { title: "Copilot", url: "https://github.com/features/copilot" }
+    ]
   },
   {
     id: 11,
@@ -76,7 +100,11 @@ export const searchData: SearchResult[] = [
     title: "LinkedIn",
     url: "https://linkedin.com",
     description: "İş dünyasındaki profesyonellere yönelik bir sosyal ağ platformu.",
-    category: "Sosyal Medya"
+    category: "Sosyal Medya",
+    subLinks: [
+      { title: "Jobs", url: "https://www.linkedin.com/jobs/" },
+      { title: "Learning", url: "https://www.linkedin.com/learning/" }
+    ]
   },
   {
     id: 13,
@@ -90,7 +118,12 @@ export const searchData: SearchResult[] = [
     title: "Amazon",
     url: "https://amazon.com",
     description: "Dünyanın en büyük e-ticaret ve bulut bilişim şirketi.",
-    category: "E-Ticaret"
+    category: "E-Ticaret",
+    subLinks: [
+      { title: "Prime Video", url: "https://www.primevideo.com" },
+      { title: "AWS", url: "https://aws.amazon.com" },
+      { title: "Music", url: "https://music.amazon.com" }
+    ]
   },
   {
     id: 15,
@@ -104,7 +137,11 @@ export const searchData: SearchResult[] = [
     title: "Wikipedia",
     url: "https://wikipedia.org",
     description: "Kullanıcıları tarafından ortaklaşa hazırlanan, özgür bir internet ansiklopedisi.",
-    category: "Referans"
+    category: "Referans",
+    subLinks: [
+      { title: "Wiktionary", url: "https://www.wiktionary.org/" },
+      { title: "Wikidata", url: "https://www.wikidata.org/" }
+    ]
   },
   {
     id: 17,
@@ -118,14 +155,22 @@ export const searchData: SearchResult[] = [
     title: "Spotify",
     url: "https://spotify.com",
     description: "Milyonlarca şarkıya ve podcaste erişim sunan bir dijital müzik servisi.",
-    category: "Eğlence"
+    category: "Eğlence",
+     subLinks: [
+      { title: "Web Player", url: "https://open.spotify.com" },
+      { title: "For Artists", url: "https://artists.spotify.com" }
+    ]
   },
   {
     id: 19,
     "title": "Figma",
     "url": "https://www.figma.com",
     "description": "Web tabanlı, işbirlikçi bir arayüz tasarım aracı.",
-    category: "Tasarım"
+    category: "Tasarım",
+     subLinks: [
+      { title: "Community", url: "https://www.figma.com/community" },
+      { title: "FigJam", url: "https://www.figma.com/figjam/" }
+    ]
   },
   {
     id: 20,
@@ -188,49 +233,75 @@ export const searchData: SearchResult[] = [
     "title": "Discord",
     "url": "https://discord.com",
     "description": "Toplulukların sohbet, sesli ve görüntülü görüşme yapabildiği bir iletişim platformu.",
-    category: "Sosyal Medya"
+    category: "Sosyal Medya",
+    subLinks: [
+        { title: "Developers", url: "https://discord.com/developers" },
+        { title: "Nitro", url: "https://discord.com/nitro" }
+    ]
   },
   {
     id: 29,
     "title": "Steam",
     "url": "https://store.steampowered.com",
     "description": "Valve tarafından geliştirilen bir dijital video oyunu dağıtım platformu.",
-    category: "Oyun"
+    category: "Oyun",
+    subLinks: [
+        { title: "Community", url: "https://steamcommunity.com/" },
+        { title: "Workshop", url: "https://steamcommunity.com/workshop/" }
+    ]
   },
   {
     id: 30,
     title: "Facebook",
     url: "https://www.facebook.com",
     description: "İnsanların arkadaşlarıyla ve aileleriyle bağlantı kurmasını sağlayan küresel bir sosyal ağ.",
-    category: "Sosyal Medya"
+    category: "Sosyal Medya",
+    subLinks: [
+        { title: "Messenger", url: "https://www.messenger.com" },
+        { title: "Business", url: "https://business.facebook.com/" }
+    ]
   },
   {
     id: 31,
     title: "WhatsApp",
     url: "https://www.whatsapp.com",
     description: "Dünya çapında kullanılan ücretsiz bir anlık mesajlaşma ve arama uygulaması.",
-    category: "Sosyal Medya"
+    category: "Sosyal Medya",
+    subLinks: [
+      { title: "WhatsApp Web", url: "https://web.whatsapp.com" }
+    ]
   },
   {
     id: 32,
     title: "Telegram",
     url: "https://telegram.org",
     description: "Hız ve güvenlik odaklı bulut tabanlı bir anlık mesajlaşma uygulaması.",
-    category: "Sosyal Medya"
+    category: "Sosyal Medya",
+    subLinks: [
+      { title: "Telegram Web", url: "https://web.telegram.org" }
+    ]
   },
   {
     id: 33,
     title: "Vercel",
     url: "https://vercel.com",
     description: "Frontend geliştiricileri için modern web siteleri ve uygulamaları dağıtma platformu.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Templates", url: "https://vercel.com/templates" },
+      { title: "Docs", url: "https://vercel.com/docs" }
+    ]
   },
   {
     id: 34,
     title: "Netlify",
     url: "https://www.netlify.com",
     description: "Web projelerini oluşturmak, dağıtmak ve ölçeklendirmek için hepsi bir arada bir platform.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Templates", url: "https://www.netlify.com/templates/" },
+      { title: "Docs", url: "https://docs.netlify.com/" }
+    ]
   },
   {
     id: 35,
@@ -279,14 +350,21 @@ export const searchData: SearchResult[] = [
     title: "Adobe",
     url: "https://www.adobe.com",
     description: "Photoshop, Illustrator ve Acrobat gibi yaratıcı ve multimedya yazılımları sunan bir şirket.",
-    category: "Tasarım"
+    category: "Tasarım",
+    subLinks: [
+      { title: "Creative Cloud", url: "https://www.adobe.com/creativecloud.html" },
+      { title: "Photoshop", url: "https://www.adobe.com/products/photoshop.html" }
+    ]
   },
   {
     id: 42,
     title: "Notion",
     url: "https://www.notion.so",
     description: "Not alma, proje yönetimi ve görev takibi için hepsi bir arada bir çalışma alanı.",
-    category: "Araçlar & Üretkenlik"
+    category: "Araçlar & Üretkenlik",
+    subLinks: [
+      { title: "Templates", url: "https://www.notion.so/templates" }
+    ]
   },
   {
     id: 43,
@@ -307,14 +385,23 @@ export const searchData: SearchResult[] = [
     title: "Microsoft",
     url: "https://www.microsoft.com",
     description: "Windows işletim sistemleri, Office paketi ve Azure bulut hizmetleri ile tanınan bir teknoloji devi.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Office 365", url: "https://www.office.com/" },
+      { title: "Azure", url: "https://azure.microsoft.com/" },
+      { title: "Outlook", url: "https://outlook.live.com/" }
+    ]
   },
   {
     id: 46,
     title: "Apple",
     url: "https://www.apple.com",
     description: "iPhone, iPad, Mac gibi tüketici elektroniği ve yazılım ürünleri tasarlayan ve satan bir teknoloji şirketi.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Music", url: "https://music.apple.com/" },
+      { title: "TV+", url: "https://tv.apple.com/" }
+    ]
   },
   {
     id: 47,
@@ -566,7 +653,12 @@ export const searchData: SearchResult[] = [
     title: "Google Drive",
     url: "https://drive.google.com",
     description: "Kullanıcıların dosyaları bulutta depolamasına ve senkronize etmesine olanak tanıyan bir dosya depolama hizmeti.",
-    category: "Araçlar & Üretkenlik"
+    category: "Araçlar & Üretkenlik",
+    subLinks: [
+      { title: "Docs", url: "https://docs.google.com" },
+      { title: "Sheets", url: "https://sheets.google.com" },
+      { title: "Slides", url: "https://slides.google.com" }
+    ]
   },
   {
     id: 83,
@@ -1112,7 +1204,11 @@ export const searchData: SearchResult[] = [
     title: "Framer",
     url: "https://www.framer.com",
     description: "Etkileşimli prototipler ve web siteleri oluşturmak için kullanılan bir tasarım aracı.",
-    category: "Tasarım"
+    category: "Tasarım",
+    subLinks: [
+      { title: "Motion", url: "https://www.framer.com/motion/" },
+      { title: "Templates", url: "https://www.framer.com/templates/" }
+    ]
   },
   {
     id: 161,
@@ -1406,28 +1502,41 @@ export const searchData: SearchResult[] = [
     title: "React.dev",
     url: "https://react.dev",
     description: "Modern React dokümantasyonu ve öğrenme kaynakları.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "React Native", url: "https://reactnative.dev/" }
+    ]
   },
   {
     id: 203,
     title: "Vue.js",
     url: "https://vuejs.org",
     description: "İlerici bir JavaScript çerçevesi.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Vue Router", url: "https://router.vuejs.org/" },
+      { title: "Pinia", url: "https://pinia.vuejs.org/" }
+    ]
   },
   {
     id: 204,
     title: "Svelte",
     url: "https://svelte.dev",
     description: "Radikal olarak yeni bir yaklaşımla kullanıcı arayüzleri oluşturan bir derleyici.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "SvelteKit", url: "https://kit.svelte.dev/" }
+    ]
   },
   {
     id: 205,
     title: "Tailwind CSS",
     url: "https://tailwindcss.com",
     description: "Hızlı UI geliştirme için tasarlanmış, kullanışlılık öncelikli bir CSS çerçevesi.",
-    category: "Geliştirme"
+    category: "Geliştirme",
+    subLinks: [
+      { title: "Tailwind UI", url: "https://tailwindui.com/" }
+    ]
   },
   {
     id: 206,
