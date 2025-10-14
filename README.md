@@ -59,6 +59,10 @@ npm run deploy
 ```
 Bu komut, projeyi `dist` klasörüne build eder ve ardından `gh-pages` branch'ine göndererek siteyi günceller.
 
+## 📜 Lisans
+
+Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Bu, projeyi kendi amaçlarınız için kullanmakta, değiştirmekte ve dağıtmakta özgür olduğunuz anlamına gelir, tek şart lisans ve telif hakkı bildirimini korumanızdır.
+
 ---
 
 Atilla Yalın Öksüz tarafından geliştirildi.
