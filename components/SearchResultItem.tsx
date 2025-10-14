@@ -75,10 +75,28 @@ export const SearchResultItem: React.FC<SearchResultItemProps> = ({ result, styl
           </div>
 
         </div>
+      </a>
+      {result.description && (
         <p className="text-slate-400 mt-3 text-sm leading-relaxed">
           {result.description}
         </p>
-      </a>
+      )}
+
+      {result.subLinks && result.subLinks.length > 0 && (
+        <div className={`flex flex-wrap gap-2 ${result.description ? 'mt-3' : 'mt-4'}`}>
+          {result.subLinks.map((link, index) => (
+            <a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-slate-700/50 text-slate-300 hover:bg-slate-700 hover:text-cyan-300 text-xs font-medium py-1 px-3 rounded-full transition-colors duration-200"
+            >
+              {link.title}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
