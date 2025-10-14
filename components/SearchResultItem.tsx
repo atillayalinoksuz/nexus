@@ -19,6 +19,9 @@ const categoryStyleMap: { [key: string]: { border: string; glow: string; text: s
   'Referans':           { border: 'hover:border-slate-400/60',    glow: 'hover:shadow-[0_0_15px_-3px_rgba(148,163,184,0.25)]', text: 'group-hover:text-slate-300' },
   'Seyahat':            { border: 'hover:border-teal-400/60',     glow: 'hover:shadow-[0_0_15px_-3px_rgba(45,212,191,0.25)]', text: 'group-hover:text-teal-300' },
   'Oyun':               { border: 'hover:border-red-500/60',      glow: 'hover:shadow-[0_0_15px_-3px_rgba(239,68,68,0.25)]', text: 'group-hover:text-red-400' },
+  'Teknoloji':          { border: 'hover:border-zinc-400/60',     glow: 'hover:shadow-[0_0_15px_-3px_rgba(161,161,170,0.25)]', text: 'group-hover:text-zinc-300' },
+  'Yapay Zeka':         { border: 'hover:border-fuchsia-400/60', glow: 'hover:shadow-[0_0_15px_-3px_rgba(232,121,249,0.25)]', text: 'group-hover:text-fuchsia-300' },
+  'Sağlık & Fitness':   { border: 'hover:border-green-400/60',   glow: 'hover:shadow-[0_0_15px_-3px_rgba(74,222,128,0.25)]', text: 'group-hover:text-green-300' },
 };
 
 
