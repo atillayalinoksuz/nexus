@@ -2,14 +2,27 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { SearchBar } from './components/SearchBar';
 import { SearchResultItem } from './components/SearchResultItem';
 import { searchData } from './data/searchData';
+import { searchData2 } from './data/searchData2';
 import { SearchResult } from './types';
 import { WelcomeModal } from './components/WelcomeModal';
+
+const NexusLogo: React.FC<{ src: string }> = ({ src }) => (
+  <img 
+    src={src} 
+    alt="Nexus Logo" 
+    className="mx-auto mb-4 w-56 sm:w-72"
+  />
+);
+
 
 const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [showAll, setShowAll] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>('Tümü');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Combine both data sources
+  const allData = useMemo(() => [...searchData, ...searchData2], []);
 
   useEffect(() => {
     const hasSeenModal = localStorage.getItem('welcomeModalSeen');
@@ -41,35 +54,64 @@ const App: React.FC = () => {
   };
   
   const categories = useMemo(() => {
-    const allCategories = searchData.map(item => item.category);
-    return ['Tümü', ...[...new Set(allCategories)].sort((a,b) => a.localeCompare(b, 'tr'))];
-  }, []);
+    const allCategories = allData.map(item => item.category);
+    // Fix: Explicitly type sort parameters to resolve 'unknown' type error.
+    return ['Tümü', ...[...new Set(allCategories)].sort((a: string, b: string) => a.localeCompare(b, 'tr'))];
+  }, [allData]);
 
   const searchResults = useMemo(() => {
     if (!query) return [];
-    const lowercasedQuery = query.toLowerCase();
-    return searchData.filter((item) => {
-      const mainContentMatch =
-        item.title.toLowerCase().includes(lowercasedQuery) ||
-        item.url.toLowerCase().includes(lowercasedQuery) ||
-        item.description.toLowerCase().includes(lowercasedQuery);
-      
-      const subLinksMatch = item.subLinks?.some(
-        (link) =>
-          link.title.toLowerCase().includes(lowercasedQuery) ||
-          link.url.toLowerCase().includes(lowercasedQuery)
-      );
+    
+    // Easter egg check
+    if (query.toLowerCase() === '2025karamel2025') return [];
 
-      return mainContentMatch || subLinksMatch;
-    });
-  }, [query]);
+    const lowercasedQuery = query.toLowerCase();
+
+    // 1. Her öğe için bir puan hesapla.
+    // 2. Puanı 0 olan öğeleri filtrele.
+    // 3. Sonuçları puana göre azalan sırada sırala.
+    return allData
+      .map(item => {
+        let score = 0;
+        const title = item.title.toLowerCase();
+        
+        // Başlık eşleşmeleri en önemlisidir
+        if (title === lowercasedQuery) {
+          score += 100; // Tam eşleşme
+        } else if (title.startsWith(lowercasedQuery)) {
+          score += 50; // Başlangıç eşleşmesi
+        } else if (title.includes(lowercasedQuery)) {
+          score += 20; // Başlık içinde geçiyorsa
+        }
+
+        // Alt bağlantı başlığı eşleşmeleri de çok önemlidir
+        if (item.subLinks?.some(link => link.title.toLowerCase().includes(lowercasedQuery))) {
+            score += 15;
+        }
+
+        // Açıklama eşleşmeleri daha az önemlidir
+        if (item.description.toLowerCase().includes(lowercasedQuery)) {
+          score += 5;
+        }
+        
+        // URL eşleşmeleri en düşük önceliğe sahiptir
+        if (item.url.toLowerCase().includes(lowercasedQuery)) {
+            score += 1;
+        }
+
+        return { ...item, score };
+      })
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score);
+
+  }, [query, allData]);
 
   const groupedResults = useMemo(() => {
       if (!showAll || query) return null;
 
       const dataToGroup = (activeCategory && activeCategory !== 'Tümü')
-        ? searchData.filter(item => item.category === activeCategory)
-        : searchData;
+        ? allData.filter(item => item.category === activeCategory)
+        : allData;
 
       const groups: { [key: string]: SearchResult[] } = {};
 
@@ -87,8 +129,14 @@ const App: React.FC = () => {
         items: groups[category]
       }));
 
-    }, [showAll, query, activeCategory]);
+    }, [showAll, query, activeCategory, allData]);
 
+  const logoSrc = useMemo(() => {
+    if (query.toLowerCase() === '2025karamel2025') {
+      return 'https://raw.githubusercontent.com/atillayalinoksuz/nexus/refs/heads/main/karamel.jpg';
+    }
+    return 'https://raw.githubusercontent.com/atillayalinoksuz/nexus/refs/heads/main/nexus.png';
+  }, [query]);
 
   const renderContent = () => {
     if (query) {
@@ -119,9 +167,9 @@ const App: React.FC = () => {
     if (showAll && groupedResults) {
       return (
         <div className="space-y-8">
-          {groupedResults.map(group => (
-            <section key={group.category}>
-              <h2 className="text-lg font-bold text-cyan-300 mb-4 sticky top-[88px] bg-slate-900/60 backdrop-blur-sm py-2 z-10 -mx-2 px-2 rounded-md">
+          {groupedResults.map((group, groupIndex) => (
+            <section key={group.category} style={{ animation: `fadeInUp 0.5s ${groupIndex * 0.1}s ease-out both` }}>
+              <h2 className="text-lg font-bold text-cyan-300 mb-4 sticky top-[88px] bg-slate-950/60 backdrop-blur-sm py-2 z-10 -mx-4 px-4 rounded-md border-b border-slate-800">
                 {group.category} <span className="text-sm font-normal text-slate-400">({group.items.length})</span>
               </h2>
               <div className="space-y-3">
@@ -129,7 +177,7 @@ const App: React.FC = () => {
                     <SearchResultItem 
                       key={result.id} 
                       result={result} 
-                      style={{ animation: `fadeInUp 0.5s ${index * 0.03}s ease-out both` }}
+                      style={{}} // Animation is now on the card itself
                     />
                   ))}
               </div>
@@ -141,7 +189,7 @@ const App: React.FC = () => {
     
     return (
       <div className="text-center text-slate-400 mt-20 flex flex-col items-center animate-fadeInUp">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mb-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mb-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <p className="text-lg font-medium text-slate-300">Veritabanında arama yapmak için bir şeyler yazın.</p>
@@ -161,26 +209,30 @@ const App: React.FC = () => {
         .animate-fadeInUp {
           animation: fadeInUp 0.5s ease-out both;
         }
+        .line-clamp-2 {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
       `}</style>
       
       <header className="text-center mb-10 w-full max-w-3xl">
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 to-slate-400 text-transparent bg-clip-text">
-            Nexus
-        </h1>
-        <p className="text-slate-400 mt-3 text-base sm:text-lg">
-          <span className="text-white font-medium">{searchData.length}</span> platformluk veri setinde anında arama yapın.
+        <NexusLogo src={logoSrc} />
+        <p className="text-slate-400 mt-4 text-base sm:text-lg">
+          <span className="text-white font-medium">{allData.length}</span> platformluk veri setinde anında arama yapın.
         </p>
       </header>
       
       <main className="w-full max-w-3xl">
-        <div className="sticky top-4 z-20 space-y-4">
+        <div className="sticky top-4 z-20 space-y-4 bg-slate-950/30 backdrop-blur-lg -mx-4 px-4 py-4 rounded-xl">
             <SearchBar value={query} onChange={handleSearchChange} onClear={handleClearSearch} placeholder="Bir platform, teknoloji veya kategori arayın..."/>
              <div className="text-center">
                 <button
                     onClick={handleToggleShowAll}
-                    className="bg-slate-800/50 backdrop-blur-sm text-sm py-2 px-5 rounded-full border border-slate-700 hover:bg-slate-700/80 hover:border-cyan-400/50 text-slate-300 hover:text-white transition-all duration-300 shadow-lg"
+                    className="bg-slate-800/70 backdrop-blur-sm text-sm py-2 px-5 rounded-full border border-slate-700 hover:bg-slate-700/80 hover:border-cyan-400/50 text-slate-300 hover:text-white transition-all duration-300 shadow-lg transform hover:scale-105"
                 >
-                    {showAll ? 'Kategorileri Gizle' : 'Tüm Platformları Görüntüle'}
+                    {showAll ? 'Aramaya Dön' : 'Tüm Platformları Görüntüle'}
                 </button>
             </div>
         </div>
@@ -191,10 +243,10 @@ const App: React.FC = () => {
               <button 
                 key={cat} 
                 onClick={() => setActiveCategory(cat)}
-                className={`text-xs font-medium backdrop-blur-sm py-1.5 px-3 rounded-full border transition-all duration-200 ${
+                className={`text-xs font-medium backdrop-blur-sm py-1.5 px-3 rounded-full border transition-all duration-200 transform hover:scale-105 ${
                   activeCategory === cat 
-                  ? 'bg-cyan-400/10 border-cyan-400 text-cyan-300' 
-                  : 'bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-700 hover:border-slate-500'
+                  ? 'bg-cyan-400/20 border-cyan-400/80 text-cyan-300 shadow-[0_0_15px_-5px_rgba(34,211,28,0.4)]' 
+                  : 'bg-slate-800/60 border-slate-700 text-slate-300 hover:bg-slate-700/80 hover:border-slate-500'
                 }`}
               >
                 {cat}
@@ -203,13 +255,22 @@ const App: React.FC = () => {
           </div>
         )}
 
-        <div className="mt-6">
+        <div className="mt-8">
           {renderContent()}
         </div>
       </main>
 
       <footer className="text-slate-500 mt-auto pt-16 text-center text-sm">
-        <p>Atilla Yalın Öksüz Tarafından geliştirildi.</p>
+        <p>
+            <a 
+                href="https://www.instagram.com/atilla_yalin_oksuuz" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-cyan-400 hover:underline transition-colors"
+            >
+                Atilla Yalın Öksüz
+            </a> Tarafından geliştirildi.
+        </p>
       </footer>
     </div>
   );
