@@ -40,6 +40,34 @@
     animation: background-pan 30s ease infinite;
     background-attachment: fixed;
   }
+
+  #preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    transition: opacity 0.5s ease;
+  }
+  #preloader.fade-out {
+    opacity: 0;
+  }
+  #preloader img {
+    width: 224px;
+    animation: pulse 2s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+  }
+  @media (min-width: 640px) {
+    #preloader img {
+      width: 288px;
+    }
+  }
 </style>
 <link rel="stylesheet" href="/index.css">
   <script type="importmap">
@@ -53,9 +81,12 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="/nexus/assets/index-B5LpLVNG.js"></script>
+  <script type="module" crossorigin src="/nexus/assets/index-D-KKI2J1.js"></script>
 </head>
   <body>
+    <div id="preloader">
+      <img src="https://raw.githubusercontent.com/atillayalinoksuz/nexus/refs/heads/main/nexus.png" alt="Nexus Yükleniyor..." />
+    </div>
     <div id="root"></div>
   </body>
 </html>
