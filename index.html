@@ -19,17 +19,38 @@
 }
 </script>
 <style>
+  :root {
+    --bg-color: #020617;
+    --glow-1: #520668;
+    --glow-2: #053d74;
+    --glow-3: #044358;
+    --glow-4: #4e0350;
+  }
   html { font-family: 'Inter', sans-serif; }
   @supports (font-variation-settings: normal) {
     html { font-family: 'Inter var', sans-serif; }
   }
+  
+  @keyframes background-pan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
   body {
-    background-color: #0f172a;
-    background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 40%);
+    background-color: var(--bg-color);
+    background-image: radial-gradient(at 27% 37%, var(--glow-1) 0px, transparent 50%),
+                      radial-gradient(at 97% 21%, var(--glow-2) 0px, transparent 50%),
+                      radial-gradient(at 52% 99%, var(--glow-3) 0px, transparent 50%),
+                      radial-gradient(at 10% 29%, var(--glow-3) 0px, transparent 50%),
+                      radial-gradient(at 97% 96%, var(--glow-4) 0px, transparent 50%),
+                      radial-gradient(at 33% 50%, var(--glow-4) 0px, transparent 50%),
+                      radial-gradient(at 79% 53%, var(--glow-1) 0px, transparent 50%);
+    background-size: 200% 200%;
+    animation: background-pan 30s ease infinite;
     background-attachment: fixed;
   }
 </style>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
