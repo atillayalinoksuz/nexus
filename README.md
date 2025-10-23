@@ -11,7 +11,7 @@ Nexus, kişisel olarak derlenmiş ve sık kullanılan platformlar, araçlar ve w
 
 ## ✨ Özellikler
 
-- **Anında Arama:** 300'den fazla platform, araç ve web sitesi içeren veri setinde başlık, URL ve açıklamaya göre anında arama yapın.
+- **Anında Arama:** 1000'den fazla platform, araç ve web sitesi içeren veri setinde başlık, URL ve açıklamaya göre anında arama yapın.
 - **Kategori Filtreleme:** Sonuçları "Tüm Platformları Görüntüle" seçeneği ile kategorilere göre gruplandırılmış olarak görün ve belirli bir kategoriye göre filtreleyin.
 - **Dinamik Favicon:** Her site için Google'ın Favicon servisi üzerinden dinamik olarak ikonlar çekilir. İkon bulunamazsa, sitenin baş harfi gösterilir.
 - **Modern Arayüz:** Tailwind CSS ile oluşturulmuş temiz, karanlık temalı ve modern bir kullanıcı arayüzü.
